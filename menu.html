@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title data-en="Everest Cafe" data-ar="مقهى إيفرست">Everest Cafe</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="icon" type="image/x-icon" href="icon.ico"> 
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
+  <style>
+   * {
+      box-sizing: border-box;
+    }
+
+    
+    body {
+      font-family: 'Open Sans', sans-serif;
+      margin: 0;
+      padding-top: 70px;
+      background-color: #fff8f2;
+      color: #333;
+      transition: direction 0.3s ease;
+    }
+
+    header {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background-color: #483b35;
+      z-index: 1000;
+      box-shadow: 0 4px 6px #483b35;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 20px;
+    }
+
+    .logo { height: 40px; }  
+    
+    nav {
+      display: flex;
+      gap: 15px;
+      align-items: center;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-size: 14px;
+      text-transform: uppercase;
+      padding: 5px 10px;
+      transition: background 0.3s;
+    }
+
+    nav a:hover {
+      background-color: #a87c50;
+      border-radius: 4px;
+    }
+
+    footer {
+      background-color: #483b35;
+      color: white;
+      padding: 10px;
+      text-align: center;
+      font-size: 14px;
+    }
+    section {
+      padding: 20px;
+      margin: 20px;
+      background-color: white;
+      border-radius: 10px;
+    }
+    h1 {
+      color: #5c4033;
+      text-align: center; /* Centering the "Our Menu" heading */
+    }
+    h2 {
+      color: #333;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px 0;
+    }
+    th, td {
+      padding: 10px;
+      text-align: center;
+      border: 1px solid #ddd;
+    }
+    th {
+      background-color: #c89b6d;
+      color: white;
+    }
+    tr:nth-child(even) {
+      background-color: #f9f9f9;
+    }
+    tr:hover {
+      background-color: #f1f1f1;
+    }
+    .btn {
+      background-color: #c89b6d;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+    .btn:hover {
+      background-color: #c89b6d;
+    }
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0, 0, 0, 0.5);
+      padding-top: 60px;
+    }
+    .modal-content {
+      background-color: #fff;
+      margin: 5% auto;
+      padding: 20px;
+      width: 30%;  /* Adjust the width for a more compact appearance */
+      height: auto;  /* Let height adjust dynamically */
+      border-radius: 10px;
+      display: flex;
+      flex-direction: column; /* Stack elements vertically */
+      gap: 15px; /* Space between elements */
+    }
+    .close {
+      color: #aaa;
+      font-size: 28px;
+      font-weight: bold;
+      float: right;
+      cursor: pointer;
+    }
+    .close:hover,
+    .close:focus {
+      color: black;
+    }
+    .modal-form label {
+      font-weight: bold;
+      margin-bottom: 8px;
+      text-align: left; /* Align labels to the left */
+    }
+    .modal-form input,
+    .modal-form select,
+    .modal-form textarea {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 10px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      box-sizing: border-box; /* Ensure padding doesn't increase input size */
+    }
+    .extras {
+      margin-top: 10px;
+    }
+    .extras p {
+      font-weight: bold;
+      margin-bottom: 8px;
+      text-align: left;
+    }
+    /* Align checkboxes and labels to the left and display them on the same line */
+    .extras label {
+      display: inline-block;
+      margin-right: 15px; /* Space between the items */
+      text-align: left;
+      cursor: pointer; /* Make label clickable */
+    }
+    .extras input[type="checkbox"] {
+      width: 20px;
+      height: 20px;
+      border: 2px solid #333;
+      border-radius: 5px;
+      margin-right: 10px;
+      cursor: pointer; /* Make checkbox a clickable box */
+    }
+
+    
+  </style>
+</head>
+<body>
+  <header>
+    <img src="logo.png" alt="Everest Cafe Logo" class="logo" />  
+    <nav>
+      <a href="about.html" data-en="About" data-ar="حول">About</a>
+      <a href="contact.html" data-en="Contact" data-ar="اتصال">Contact</a>
+      <a href="login.html" data-en="Login" data-ar="تسجيل دخول">Login</a>
+      <a href="cart.html" data-en="Cart (0)" data-ar="السلة">Cart (<span id="cart-count">0</span>)</a>
+      <div class="lang-container">
+        <button class="lang-switch" onclick="setLanguage('en')">English</button>
+        <button class="lang-switch" onclick="setLanguage('ar')">العربية</button>
+      </div>
+    </nav>
+  </header>
+  
+  <style>
+    nav {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+  
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-size: 14px;
+      text-transform: uppercase;
+      padding: 5px 10px;
+      transition: background 0.3s;
+    }
+  
+    nav a:hover {
+      background-color: #a87c50;
+      border-radius: 4px;
+    }
+  
+    .lang-container {
+      display: flex;
+      gap: 12px; /* Adjust the spacing between the language buttons */
+      align-items: center;
+    }
+  
+    .lang-switch {
+      background-color: #c89b6d;
+      border: none;
+      padding: 5px 10px;
+      margin-left: 10px;
+      border-radius: 4px;
+      color: white;
+      cursor: pointer;
+      font-size: 12px;
+    }
+  </style>
+  
+  <section>
+    <h1 data-en="Our Menu" data-ar="قائمتنا">Our Menu</h1>
+
+    <!-- Coffee Drinks Table -->
+    <h2 data-en="Coffee Drinks" data-ar="مشروبات القهوة">Coffee Drinks</h2>
+    <table>
+      <thead>
+        <tr>
+          <th data-en="Image" data-ar="صورة">Image</th>
+          <th data-en="Item" data-ar="المنتج">Item</th>
+          <th data-en="Size S Price (EGP)" data-ar="سعر الحجم الصغير (جنيه)">Size S Price (EGP)</th>
+          <th data-en="Size M Price (EGP)" data-ar="سعر الحجم المتوسط (جنيه)">Size M Price (EGP)</th>
+          <th data-en="Order" data-ar="طلب">Order</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><img src="espresso.png" alt="Espresso" style="width: 50px;" /></td>
+          <td data-en="Espresso" data-ar="إسبريسو">Espresso</td>
+          <td>90 EGP</td>
+          <td>120 EGP</td>
+          <td><button class="btn" onclick="openDrinkModal('Espresso', 90, 120)" data-en="Order" data-ar="طلب">Order</button></td>
+        </tr>
+        <tr>
+          <td><img src="cappuccino.png" alt="Cappuccino" style="width: 50px;" /></td>
+          <td data-en="Cappuccino" data-ar="كابتشينو">Cappuccino</td>
+          <td>135 EGP</td>
+          <td>165 EGP</td>
+          <td><button class="btn" onclick="openDrinkModal('Cappuccino', 135, 165)" data-en="Order" data-ar="طلب">Order</button></td>
+        </tr>
+        <tr>
+          <td><img src="latte.png" alt="Latte" style="width: 50px;" /></td>
+          <td data-en="Latte" data-ar="لاتيه">Latte</td>
+          <td>135 EGP</td>
+          <td>165 EGP</td>
+          <td><button class="btn" onclick="openDrinkModal('Latte', 135, 165)" data-en="Order" data-ar="طلب">Order</button></td>
+        </tr>
+        <tr>
+          <td><img src="mocha.png" alt="Mocha" style="width: 50px;" /></td>
+          <td data-en="Mocha" data-ar="موكا">Mocha</td>
+          <td>135 EGP</td>
+          <td>165 EGP</td>
+          <td><button class="btn" onclick="openDrinkModal('Mocha', 135, 165)" data-en="Order" data-ar="طلب">Order</button></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- Coffee Beans Table -->
+    <h2 data-en="Coffee Beans" data-ar="حبوب القهوة">Coffee Beans</h2>
+    <table>
+      <thead>
+        <tr>
+          <th data-en="Image" data-ar="صورة">Image</th>
+          <th data-en="Item" data-ar="المنتج">Item</th>
+          <th data-en="Price (EGP)" data-ar="السعر (جنيه)">Price (EGP)</th>
+          <th data-en="Order" data-ar="طلب">Order</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><img src="coffeebeans.png" alt="Coffee Beans" style="width: 50px;" /></td>
+          <td data-en="Coffee Beans" data-ar="حبوب القهوة">Coffee Beans</td>
+          <td>200 EGP</td>
+          <td><button class="btn" onclick="openBeansModal()" data-en="Order" data-ar="طلب">Order</button></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- Accessories Table -->
+    <h2 data-en="Accessories" data-ar="إكسسوارات">Accessories</h2>
+    <table>
+      <thead>
+        <tr>
+          <th data-en="Image" data-ar="صورة">Image</th>
+          <th data-en="Item" data-ar="المنتج">Item</th>
+          <th data-en="Price (EGP)" data-ar="السعر (جنيه)">Price (EGP)</th>
+          <th data-en="Order" data-ar="طلب">Order</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><img src="accessories.png" alt="Accessories" style="width: 50px;" /></td>
+          <td data-en="Accessories" data-ar="إكسسوارات">Accessories</td>
+          <td>50 EGP</td>
+          <td><button class="btn" onclick="openAccessoriesModal()" data-en="Order" data-ar="طلب">Order</button></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <a href="index.html" class="btn" data-en="Go Back To Home" data-ar="العودة إلى الصفحة الرئيسية">Go Back To Home</a>
+  </section>
+
+  <footer>
+    <p id="footer-text" data-en="&copy; 2025 Everest Café | All rights reserved" data-ar="© 2025 مقهى إيفرست | جميع الحقوق محفوظة">© 2025 مقهى إيفرست | جميع الحقوق محفوظة</p>
+  </footer>
+
+  <!-- Drink Modal -->
+  <div id="drinkModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal('drinkModal')">&times;</span>
+      <h2 id="drink-name"></h2>
+      <div class="modal-form">
+        <label for="size" data-en="Choose Size:" data-ar="اختر الحجم:">Choose Size:</label>
+        <select id="size">
+          <option value="S" data-en="Small" data-ar="صغير">Small</option>
+          <option value="M" data-en="Medium" data-ar="متوسط">Medium</option>
+        </select>
+
+        <label for="quantity" data-en="Quantity:" data-ar="الكمية:">Quantity:</label>
+        <input type="number" id="quantity" value="1" min="1" />
+
+        <div class="extras">
+          <p><strong data-en="Extras:" data-ar="الإضافات:">Extras:</strong></p>
+          <label><input type="checkbox" id="extra1" /> <span data-en="Whipped Cream (EGP 15)" data-ar="كريمة مخفوقة (15 جنيه)">Whipped Cream (EGP 15)</span></label>
+          <label><input type="checkbox" id="extra2" /> <span data-en="Almond Milk (EGP 30)" data-ar="حليب اللوز (30 جنيه)">Almond Milk (EGP 30)</span></label>
+          <label><input type="checkbox" id="extra3" /> <span data-en="Syrup (EGP 22)" data-ar="شراب (22 جنيه)">Syrup (EGP 22)</span></label>
+        </div>
+
+        <label for="comments" data-en="Comments:" data-ar="تعليقات:">Comments:</label>
+        <textarea id="comments" placeholder="Enter comments here" data-en-placeholder="Enter comments here" data-ar-placeholder="أدخل التعليقات هنا"></textarea>
+
+        <button class="btn" onclick="addToCart('drink')" data-en="Add to Cart" data-ar="أضف إلى السلة">Add to Cart</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Coffee Beans Modal -->
+  <div id="beansModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal('beansModal')">&times;</span>
+      <h2 data-en="Coffee Beans" data-ar="حبوب القهوة">Coffee Beans</h2>
+      <div class="modal-form">
+        <label for="bean-type" data-en="Choose Bean Type:" data-ar="اختر نوع الحبوب:">Choose Bean Type:</label>
+        <select id="bean-type">
+          <option value="Arabica" data-en="Arabica" data-ar="أرابيكا">Arabica</option>
+          <option value="Robusta" data-en="Robusta" data-ar="روبوستا">Robusta</option>
+          <option value="Liberica" data-en="Liberica" data-ar="ليبيركا">Liberica</option>
+        </select>
+
+        <label for="bean-quantity" data-en="Quantity (grams):" data-ar="الكمية (جرام):">Quantity (grams):</label>
+        <input type="number" id="bean-quantity" value="250" min="100" step="50" />
+
+        <button class="btn" onclick="addToCart('beans')" data-en="Add to Cart" data-ar="أضف إلى السلة">Add to Cart</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Accessories Modal -->
+  <div id="accessoriesModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal('accessoriesModal')">&times;</span>
+      <h2 data-en="Accessories" data-ar="إكسسوارات">Accessories</h2>
+      <div class="modal-form">
+        <label for="accessory-type" data-en="Choose Accessory:" data-ar="اختر الإكسسوار:">Choose Accessory:</label>
+        <select id="accessory-type">
+          <option value="Mug" data-en="Mug" data-ar="كوب">Mug</option>
+          <option value="French Press" data-en="French Press" data-ar="فرنش بريس">French Press</option>
+          <option value="Coffee Grinder" data-en="Coffee Grinder" data-ar="مطحنة قهوة">Coffee Grinder</option>
+        </select>
+
+        <label for="accessory-quantity" data-en="Quantity:" data-ar="الكمية:">Quantity:</label>
+        <input type="number" id="accessory-quantity" value="1" min="1" />
+
+        <button class="btn" onclick="addToCart('accessory')" data-en="Add to Cart" data-ar="أضف إلى السلة">Add to Cart</button>
+      </div>
+    </div>
+  </div>
+  <div>Cart Items: <span id="cart-count">0</span></div>
+
+  <script>
+    // Language toggle function
+    function setLanguage(lang) {
+      const elements = document.querySelectorAll('[data-en]');
+      elements.forEach(el => {
+        if (lang === 'ar') {
+          el.textContent = el.getAttribute('data-ar');
+          // For input placeholders:
+          if (el.placeholder !== undefined) {
+            el.placeholder = el.getAttribute('data-ar-placeholder') || el.placeholder;
+          }
+          document.documentElement.lang = 'ar';
+          document.documentElement.dir = 'rtl';
+          document.body.style.direction = 'rtl';
+        } else {
+          el.textContent = el.getAttribute('data-en');
+          if (el.placeholder !== undefined) {
+            el.placeholder = el.getAttribute('data-en-placeholder') || el.placeholder;
+          }
+          document.documentElement.lang = 'en';
+          document.documentElement.dir = 'ltr';
+          document.body.style.direction = 'ltr';
+        }
+      });
+    }
+
+    // Default language
+    setLanguage('en');
+
+    // Modal functions
+    function openDrinkModal(name, priceS, priceM) {
+      const modal = document.getElementById('drinkModal');
+      document.getElementById('drink-name').textContent = name;
+      // Update prices in size options to reflect selected drink prices (if you want)
+      // Reset form inputs:
+      document.getElementById('size').value = 'S';
+      document.getElementById('quantity').value = 1;
+      document.getElementById('extra1').checked = false;
+      document.getElementById('extra2').checked = false;
+      document.getElementById('extra3').checked = false;
+      document.getElementById('comments').value = '';
+      modal.style.display = 'block';
+    }
+
+    function openBeansModal() {
+      const modal = document.getElementById('beansModal');
+      modal.style.display = 'block';
+    }
+
+    function openAccessoriesModal() {
+      const modal = document.getElementById('accessoriesModal');
+      modal.style.display = 'block';
+    }
+
+    function closeModal(id) {
+      document.getElementById(id).style.display = 'none';
+    }
+
+    // Close modal when clicking outside the modal-content
+    window.onclick = function(event) {
+      ['drinkModal', 'beansModal', 'accessoriesModal'].forEach(id => {
+        const modal = document.getElementById(id);
+        if (event.target === modal) {
+          modal.style.display = 'none';
+        }
+      });
+    };
+
+    function addToCart(type) {
+  if (type === 'drink') {
+    const name = document.getElementById('drink-name').textContent;
+    const size = document.getElementById('size').value;
+    const quantity = parseInt(document.getElementById('quantity').value, 10);
+    const extras = [];
+    if (document.getElementById('extra1').checked) extras.push('Whipped Cream (15 EGP)');
+    if (document.getElementById('extra2').checked) extras.push('Almond Milk (30 EGP)');
+    if (document.getElementById('extra3').checked) extras.push('Syrup (22 EGP)');
+    const comments = document.getElementById('comments').value;
+
+    let price = 0;
+    if (name === 'Espresso') {
+      price = size === 'S' ? 90 : 120;
+    } else if (name === 'Cappuccino') {
+      price = size === 'S' ? 135 : 165;
+    } else {
+      price = 100; // fallback price
+    }
+
+    if (extras.includes('Whipped Cream (15 EGP)')) price += 15;
+    if (extras.includes('Almond Milk (30 EGP)')) price += 30;
+    if (extras.includes('Syrup (22 EGP)')) price += 22;
+
+    const totalPrice = price * quantity;
+
+    const item = {
+      type: 'drink',
+      name,
+      size,
+      quantity,
+      extras,
+      comments,
+      pricePerUnit: price,
+      totalPrice
+    };
+
+    // Now save to localStorage
+    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+    cart.push(item);
+    localStorage.setItem('cart', JSON.stringify(cart));
+
+    document.getElementById('cart-count').textContent = cart.length;
+    alert(`Added to cart: ${name} (${size}) x${quantity}`);
+    closeModal('drinkModal');
+
+  } else if (type === 'beans') {
+    const beanType = document.getElementById('bean-type').value;
+    const quantity = parseInt(document.getElementById('bean-quantity').value, 10);
+    const pricePerUnit = 200; // price per 250g
+    const totalPrice = pricePerUnit * (quantity / 250);
+
+    const item = {
+      type: 'beans',
+      name: beanType + ' Coffee Beans',
+      quantity,
+      pricePerUnit,
+      totalPrice
+    };
+
+    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+    cart.push(item);
+    localStorage.setItem('cart', JSON.stringify(cart));
+
+    document.getElementById('cart-count').textContent = cart.length;
+    alert(`Added to cart: ${item.name} (${quantity}g)`);
+    closeModal('beansModal');
+
+  } else if (type === 'accessory') {
+    const accessoryType = document.getElementById('accessory-type').value;
+    const quantity = parseInt(document.getElementById('accessory-quantity').value, 10);
+    const pricePerUnit = 50;
+
+    const item = {
+      type: 'accessory',
+      name: accessoryType,
+      quantity,
+      pricePerUnit,
+      totalPrice: pricePerUnit * quantity
+    };
+
+    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+    cart.push(item);
+    localStorage.setItem('cart', JSON.stringify(cart));
+
+    document.getElementById('cart-count').textContent = cart.length;
+    alert(`Added to cart: ${accessoryType} x${quantity}`);
+    closeModal('accessoriesModal');
+  }
+}
+
+
+
+    // Retrieve cart or create empty array
+    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+    cart.push(item);
+    localStorage.setItem('cart', JSON.stringify(cart));
+
+    // Update cart count badge (if you have one)
+    const cartCount = document.getElementById('cart-count');
+    if(cartCount) cartCount.textContent = cart.length;
+
+    alert(`Added to cart: ${name} x${quantity}`);
+    closeModal('drinkModal');
+  
+    document.getElementById('cart-count').textContent = (JSON.parse(localStorage.getItem('cart')) || []).length;
+
+  // TODO: Add similar logic for beans and accessories here
+
+
+  </script>
+</body>
+</html>
