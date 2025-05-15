@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title data-en="Everest Cafe" data-ar="مقهى إيفرست">Everest Cafe</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="icon" type="image/x-icon" href="icon.ico"> 
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Open Sans', sans-serif;
+      margin: 0;
+      padding-top: 70px;
+      background-color: #fdf8f2;
+      color: #000000;
+    }
+
+    header {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background-color: #483b35;
+      z-index: 1000;
+      box-shadow: 0 4px 6px #483b35;
+      display: flex;
+      align-items: center;
+      padding: 10px 20px;
+    }
+
+    .logo {
+      height: 40px;
+    }
+
+    nav {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      margin-left: auto;
+    }
+
+    [dir="rtl"] nav {
+      margin-left: 0;
+      margin-right: auto;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-size: 14px;
+      text-transform: uppercase;
+      padding: 5px 10px;
+      transition: background 0.3s;
+    }
+
+    nav a:hover {
+      background-color: #a87c50;
+      border-radius: 4px;
+    }
+
+    .lang-switch {
+      background-color: #c89b6d;
+      border: none;
+      padding: 5px 10px;
+      border-radius: 4px;
+      color: white;
+      cursor: pointer;
+      font-size: 12px;
+      text-transform: none; /* <<< CHANGED LINE */
+      transition: background 0.3s;
+    }
+
+    .lang-switch:hover {
+      background-color: #a87c50;
+    }
+
+    section {
+      max-width: 1000px;
+      margin: auto;
+      padding: 40px 20px;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 30px;
+      font-size: 24px;
+    }
+
+    .contact-content {
+      text-align: center;
+      font-size: 18px;
+      line-height: 1.6;
+    }
+
+    .contact-info {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      margin-bottom: 30px;
+    }
+
+    .contact-info div {
+      text-align: center;
+      font-size: 16px;
+    }
+
+    .contact-info i {
+      font-size: 24px;
+      margin-bottom: 10px;
+      color: #c89b6d;
+    }
+
+    footer {
+      background-color: #483b35;
+      color: white;
+      text-align: center;
+      padding: 20px;
+      margin-top: 40px;
+    }
+
+    .btn {
+      padding: 12px 20px;
+      background-color: #c89b6d;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 14px;
+      font-weight: normal;
+      cursor: pointer;
+      text-decoration: none;
+      text-transform: uppercase;
+      transition: background 0.3s;
+      display: inline-block;
+    }
+
+    .btn:hover {
+      background-color: #a87c50;
+    }
+
+    #bestsellers {
+      background-color: #fdf8f2;
+      padding: 40px 20px;
+    }
+
+    .menu-grid {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .menu-grid .item {
+      text-align: center;
+    }
+
+    .menu-grid .item img {
+      width: 150px;
+      height: auto;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+
+    .menu-grid .item h3 {
+      margin-top: 10px;
+      font-size: 18px;
+      color: #4b4e7e;
+    }
+
+    #more-info-preview {
+      text-align: center;
+      padding: 40px 20px;
+      background-color: #f9f2ec;
+    }
+
+    #more-info-preview h2 {
+      font-size: 28px;
+      margin-bottom: 15px;
+      color: #483b35;
+    }
+
+    #more-info-preview p {
+      font-size: 16px;
+      margin-bottom: 20px;
+      color: #555;
+    }
+
+    [dir="rtl"] {
+      direction: rtl;
+      text-align: right;
+      font-family: 'Cairo', sans-serif;
+    }
+
+
+
+    @media (max-width: 768px) {
+      header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      nav {
+        margin-left: 0;
+        margin-top: 10px;
+      }
+
+      [dir="rtl"] nav {
+        margin-right: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <img src="logo.png" alt="Everest Cafe Logo" class="logo" />  
+    <nav>
+      <a href="about.html" data-en="About" data-ar="حول">About</a>
+      <a href="contact.html" data-en="Contact" data-ar="اتصال">Contact</a>
+      <a href="login.html" data-en="Login" data-ar="تسجيل دخول">Login</a>
+      <a href="cart.html" data-en="Cart" data-ar="السلة">Cart (<span id="cart-count">0</span>)</a>
+      <div class="lang-container">
+        <button class="lang-switch" onclick="setLanguage('en')">English</button>
+        <button class="lang-switch" onclick="setLanguage('ar')">العربية</button>
+      </div>
+    </nav>
+  </header>
+  
+  <style>
+    nav {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+  
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-size: 14px;
+      text-transform: uppercase;
+      padding: 5px 10px;
+      transition: background 0.3s;
+    }
+  
+    nav a:hover {
+      background-color: #a87c50;
+      border-radius: 4px;
+    }
+  
+    .lang-container {
+      display: flex;
+      gap: 12px; /* Adjust the spacing between the language buttons */
+      align-items: center;
+    }
+  
+    .lang-switch {
+      background-color: #c89b6d;
+      border: none;
+      padding: 5px 10px;
+      margin-left: 10px;
+      border-radius: 4px;
+      color: white;
+      cursor: pointer;
+      font-size: 12px;
+    }
+  </style>
+  
+  <section id="hero">
+    <h1 data-en="Welcome to Everest Cafe" data-ar="مرحبًا بكم في مقهى إيفرست">Welcome to Everest Cafe</h1>
+    <p data-en="Great coffee, fresh vibes, and your favorite place to chill." data-ar="قهوة رائعة، أجواء منعشة، ومكانك المفضل للاسترخاء.">
+      Great coffee, fresh vibes, and your favorite place to chill.
+    </p>
+    <a href="menu.html" class="btn" data-en="Explore Our Menu" data-ar="استعرض قائمتنا">Explore Our Menu</a>
+  </section>
+
+  <section id="bestsellers">
+    <h2 data-en="Our Best Sellers" data-ar="الأكثر مبيعًا">Our Best Sellers</h2>
+    <div class="menu-grid">
+      <div class="item"><img src="espresso.png"><h3>Espresso</h3></div>
+      <div class="item"><img src="latte.png"><h3>Latte</h3></div>
+      <div class="item"><img src="mocha.png"><h3>Mocha</h3></div>
+    </div> 
+  </section>
+
+  <section id="more-info-preview">
+    <h2 data-en="More Information" data-ar="معلومات إضافية">More Information</h2>
+    <p data-en="Learn about our store location, franchise opportunities, refund policy, and more!" data-ar="تعرف على موقع المتجر، فرص الامتياز، سياسة الاسترداد، والمزيد!">
+      Learn about our store location, franchise opportunities, refund policy, and more!
+    </p>
+    <a href="about.html" class="btn" data-en="Learn More" data-ar="اعرف المزيد">Learn More</a>
+  </section>
+
+  <footer>
+    <p data-en="&copy; 2025 Everest Cafe. All rights reserved." data-ar="&copy; 2025 مقهى إيفرست. جميع الحقوق محفوظة.">
+      &copy; 2025 Everest Cafe. All rights reserved.
+    </p>
+  </footer>
+
+  <script>
+    function setLanguage(lang) {
+      document.documentElement.lang = lang;
+      document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+
+      document.querySelectorAll('[data-en]').forEach(el => {
+        el.textContent = el.getAttribute(`data-${lang}`);
+      });
+    }
+  </script>
+</body>
+</html>
